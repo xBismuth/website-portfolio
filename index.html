@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xBismuth - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/darkveil.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #2B2B2B 0%, #1a1a1a 50%, #2B2B2B 100%);
+            color: #FFFFFF;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        #mainContent {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        nav > div {
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+        }
+        
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .nav-link:hover {
+            color: #D4D4D4;
+        }
+
+        .nav-link.text-blue-400 {
+            color: #D4D4D4;
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 35;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .mobile-menu-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #closeMenu {
+            color: white;
+            background: transparent;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        #closeMenu:hover {
+            transform: rotate(90deg);
+            color: #D4D4D4;
+        }
+
+        #menuBtn {
+            color: white;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        #menuBtn:hover {
+            transform: scale(1.1);
+        }
+
+        #menuBtn svg {
+            stroke: currentColor;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            text-align: center;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .glow-line {
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D4D4D4, transparent);
+            box-shadow: 0 0 20px #D4D4D4, 0 0 40px #D4D4D4;
+            animation: pulse 2s ease-in-out infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Horizon effect container */
+        .horizon-container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 600px;
+            opacity: 0;
+            animation: fadeInHorizon 1.2s ease-out forwards;
+        }
+
+        .sun-dome {
+            position: absolute;
+            left: 50%;
+            bottom: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 500px;
+            background: radial-gradient(ellipse at center bottom,
+                rgba(212, 212, 212, 0.6) 0%,
+                rgba(212, 212, 212, 0.4) 20%,
+                rgba(212, 212, 212, 0.3) 40%,
+                rgba(212, 212, 212, 0.15) 60%,
+                transparent 100%);
+            filter: blur(60px);
+            animation: riseAndPulse 2s ease-out forwards, gentlePulse 3s ease-in-out infinite 2s;
+        }
+
+        .light-rays-top {
+            position: absolute;
+            left: 50%;
+            bottom: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(to top,
+                rgba(212, 212, 212, 0.5) 0%,
+                rgba(212, 212, 212, 0.3) 15%,
+                rgba(212, 212, 212, 0.2) 35%,
+                rgba(212, 212, 212, 0.1) 55%,
+                rgba(212, 212, 212, 0.05) 75%,
+                transparent 100%);
+            filter: blur(50px);
+            animation: riseAndPulse 2s ease-out forwards, gentlePulse 3s ease-in-out infinite 2s;
+        }
+
+        .light-rays-bottom {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to bottom,
+                rgba(212, 212, 212, 0.4) 0%,
+                rgba(212, 212, 212, 0.2) 25%,
+                rgba(212, 212, 212, 0.1) 50%,
+                rgba(212, 212, 212, 0.05) 75%,
+                transparent 100%);
+            filter: blur(40px);
+            animation: riseAndPulse 2s ease-out forwards, gentlePulse 3s ease-in-out infinite 2s;
+        }
+
+        .horizon-line {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(212, 212, 212, 0.2) 15%,
+                rgba(212, 212, 212, 1) 50%,
+                rgba(212, 212, 212, 0.2) 85%,
+                transparent 100%);
+            transform: translateY(-50%);
+            box-shadow: 
+                0 0 30px rgba(212, 212, 212, 1),
+                0 0 60px rgba(212, 212, 212, 0.8),
+                0 0 90px rgba(212, 212, 212, 0.5);
+            animation: lineGlow 2s ease-out forwards, linePulse 3s ease-in-out infinite 2s;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 300;
+            color: white;
+            letter-spacing: 0.15em;
+            margin: 0 0 3.5rem 0;
+            opacity: 0;
+            animation: fadeInUpSmooth 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.5s forwards;
+            text-shadow: 0 0 40px rgba(212, 212, 212, 0.4);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .title:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 0 60px rgba(212, 212, 212, 0.6), 0 0 80px rgba(212, 212, 212, 0.4);
+            color: #D4D4D4;
+            letter-spacing: 0.2em;
+        }
+        
+        .title:active {
+            transform: translateY(0);
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+            margin: 3.5rem auto 0;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInSmooth 1.5s ease-in-out 1.8s forwards;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.05em;
+            position: relative;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(212, 212, 212, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .filter-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D4D4D4, transparent);
+            box-shadow: 0 0 10px rgba(212, 212, 212, 0.6);
+        }
+
+        .portfolio-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .portfolio-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .portfolio-grid {
+            display: flex;
+            gap: 1rem;
+            width: max-content;
+            padding: 0 2rem;
+        }
+
+        .portfolio-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            width: 450px;
+            min-width: 450px;
+            height: 550px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+            z-index: 1;
+        }
+        
+        .portfolio-card:hover::before {
+            left: 100%;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3), 0 0 30px rgba(212, 212, 212, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-color: rgba(212, 212, 212, 0.4);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(212, 212, 212, 0.15) 0%, rgba(179, 179, 179, 0.1) 100%);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card-image video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .portfolio-card:hover .card-image video {
+            opacity: 1;
+        }
+        
+        .portfolio-card:hover .card-image img {
+            opacity: 0;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .card-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .portfolio-card:hover .card-arrow {
+            background: linear-gradient(135deg, rgba(212, 212, 212, 0.3) 0%, rgba(179, 179, 179, 0.2) 100%);
+            border-color: rgba(212, 212, 212, 0.5);
+            box-shadow: 0 4px 15px rgba(212, 212, 212, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg);
+        }
+
+        .card-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: #ffffff;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(43, 43, 43, 0.98) 0%, rgba(26, 26, 26, 0.98) 100%);
+            border: 1px solid rgba(212, 212, 212, 0.2);
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(212, 212, 212, 0.2);
+            border-color: rgba(212, 212, 212, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .modal-close svg {
+            width: 24px;
+            height: 24px;
+            stroke: #ffffff;
+        }
+
+        .modal-video {
+            width: 100%;
+            height: 500px;
+            background: #000;
+            border-radius: 24px 24px 0 0;
+            overflow: hidden;
+        }
+
+        .modal-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Modal scrollbar styling */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(212, 212, 212, 0.3);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 212, 212, 0.5);
+        }
+
+        /* Modal image gallery */
+        .modal-gallery {
+            margin: 2rem 0;
+        }
+
+        .modal-gallery-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .modal-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .modal-gallery-item {
+            position: relative;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(212, 212, 212, 0.2);
+            border-color: rgba(212, 212, 212, 0.3);
+        }
+
+        .modal-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .modal-category {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(212, 212, 212, 0.1);
+            border: 1px solid rgba(212, 212, 212, 0.3);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: #D4D4D4;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .modal-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .modal-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-info-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-info-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-info-value {
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(212, 212, 212, 0.1);
+            border: 1px solid rgba(212, 212, 212, 0.2);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .modal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, rgba(212, 212, 212, 0.2) 0%, rgba(179, 179, 179, 0.15) 100%);
+            border: 1px solid rgba(212, 212, 212, 0.3);
+            border-radius: 12px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .modal-link:hover {
+            background: linear-gradient(135deg, rgba(212, 212, 212, 0.3) 0%, rgba(179, 179, 179, 0.25) 100%);
+            border-color: rgba(212, 212, 212, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 212, 212, 0.2);
+        }
+
+        @keyframes fadeInHorizon {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes riseAndPulse {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% {
+                opacity: 1;
+                filter: blur(60px);
+            }
+            50% {
+                opacity: 0.7;
+                filter: blur(70px);
+            }
+        }
+
+        @keyframes lineGlow {
+            0% {
+                opacity: 0;
+                box-shadow: 0 0 10px rgba(212, 212, 212, 0.3);
+            }
+            100% {
+                opacity: 1;
+                box-shadow: 
+                    0 0 30px rgba(212, 212, 212, 1),
+                    0 0 60px rgba(212, 212, 212, 0.8),
+                    0 0 90px rgba(212, 212, 212, 0.5);
+            }
+        }
+
+        @keyframes linePulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 30px rgba(212, 212, 212, 1),
+                    0 0 60px rgba(212, 212, 212, 0.8),
+                    0 0 90px rgba(212, 212, 212, 0.5);
+            }
+            50% {
+                box-shadow: 
+                    0 0 40px rgba(212, 212, 212, 1),
+                    0 0 80px rgba(212, 212, 212, 0.9),
+                    0 0 120px rgba(212, 212, 212, 0.6);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUpSmooth {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+                filter: blur(4px);
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(5px) scale(0.99);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes fadeInSmooth {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+                margin-bottom: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+                padding: 0 1rem;
+                margin-top: 2.5rem;
+            }
+            .horizon-container {
+                height: 400px;
+            }
+            .sun-dome {
+                width: 600px;
+                height: 300px;
+            }
+            .filter-tabs {
+                gap: 1.5rem;
+            }
+            
+            .filter-tab {
+                font-size: 1.25rem;
+            }
+            
+            .portfolio-card {
+                width: 350px;
+                min-width: 350px;
+                height: 450px;
+            }
+            
+            .card-image {
+                height: 320px;
+            }
+            
+            .portfolio-grid {
+                padding: 0 1rem;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                max-height: 85vh;
+            }
+
+            .modal-video {
+                height: 300px;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div id="mainContent">
+        <!-- Navigation -->
+        <nav class="fixed top-0 w-full z-50 backdrop-blur-sm border-b" style="background: linear-gradient(135deg, rgba(43, 43, 43, 0.95) 0%, rgba(43, 43, 43, 0.85) 100%); border-color: rgba(212, 212, 212, 0.2); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <a href="splashscreen.html" class="flex items-center space-x-2 cursor-pointer">
+                        <img src="assets/Images/logo.png" alt="xBismuth Logo" width="40" height="40" style="object-fit: contain;">
+                        <span class="text-lg font-semibold" style="font-family: 'Poppins', sans-serif; font-weight: 600;">xBismuth</span>
+                    </a>
+                    
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#home" class="nav-link">Home</a>
+                        <a href="portfolio.html" class="nav-link">Portfolio</a>
+                        <a href="#services" class="nav-link">Services</a>
+                        <a href="#about" class="nav-link">About Me</a>
+                        <a href="#contact" class="nav-link">Contact Me</a>
+                    </div>
+                    
+                    <button id="menuBtn" class="md:hidden">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12h18M3 6h18M3 18h18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="mobileMenuBackdrop" class="mobile-menu-backdrop"></div>
+        
+        <div id="mobileMenu" class="mobile-menu fixed right-0 top-0 h-full w-64 backdrop-blur-sm z-40 p-8" style="background: linear-gradient(135deg, rgba(43, 43, 43, 0.98) 0%, rgba(43, 43, 43, 0.92) 100%); box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4), inset 1px 0 0 rgba(255, 255, 255, 0.05); border-left: 1px solid rgba(212, 212, 212, 0.1);">
+            <button id="closeMenu" class="absolute top-6 right-6 text-2xl">×</button>
+            <div class="flex flex-col space-y-6 mt-16">
+                <a href="#home" class="nav-link text-lg">Home</a>
+                <a href="portfolio.html" class="nav-link text-lg">Portfolio</a>
+                <a href="#services" class="nav-link text-lg">Services</a>
+                <a href="#about" class="nav-link text-lg">About Me</a>
+                <a href="#contact" class="nav-link text-lg">Contact Me</a>
+            </div>
+        </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="vignette"></div>
+
+        <div class="content-wrapper">
+            <a href="portfolio.html" style="text-decoration: none; color: inherit;">
+                <h1 class="title">MY PORTFOLIO</h1>
+            </a>
+            
+            <div class="horizon-container">
+                <div class="sun-dome"></div>
+                <div class="light-rays-top"></div>
+                <div class="light-rays-bottom"></div>
+                <div class="horizon-line"></div>
+            </div>
+            
+            <p class="subtitle">Crafting clean, modern experiences through 3D design, web development, and UI creation.</p>
+        </div>
+    </section>
+
+    <!-- Portfolio Filter Section -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="filter-tabs">
+            <div class="filter-tab active" data-filter="all">ALL</div>
+            <div class="filter-tab" data-filter="website">WEBSITE</div>
+            <div class="filter-tab" data-filter="3d">3D DESIGN</div>
+            <div class="filter-tab" data-filter="uiux">UI/UX</div>
+        </div>
+        
+        <div class="portfolio-container" id="portfolioContainer">
+            <div class="portfolio-grid" id="portfolioGrid">
+                <div class="portfolio-card" data-project="ponyo">
+                    <div class="card-image">
+                        <img src="assets/Images/ponyo.png" alt="Ponyo 3D Model">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/ponyoanimation.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Ponyo 3D Model</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-project="kimi">
+                    <div class="card-image">
+                        <img src="assets/Images/kiminososuke.png" alt="Kimi no Na wa Scene">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/kiminonoawaa.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Your Name Scene</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-project="frieren">
+                    <div class="card-image">
+                        <img src="assets/Images/frieren.png" alt="Frieren Character">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/frieren.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Frieren Character</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-project="onitsuka">
+                    <div class="card-image">
+                        <img src="assets/Images/ontisuka.png" alt="Onitsuka Tiger UI">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/onitsuka.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Onitsuka Tiger UI</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-project="knk">
+                    <div class="card-image">
+                        <img src="assets/Images/knkscreenshot.png" alt="KNK Website">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/website walkthrough.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">KNK Website</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duplicate set for infinite scroll -->
+                <div class="portfolio-card" data-project="ponyo">
+                    <div class="card-image">
+                        <img src="assets/Images/ponyo.png" alt="Ponyo 3D Model">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/ponyoanimation.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Ponyo 3D Model</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-project="kimi">
+                    <div class="card-image">
+                        <img src="assets/Images/kiminososuke.png" alt="Kimi no Na wa Scene">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/kiminonoawaa.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Your Name Scene</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-project="frieren">
+                    <div class="card-image">
+                        <img src="assets/Images/frieren.png" alt="Frieren Character">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/frieren.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Frieren Character</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-project="onitsuka">
+                    <div class="card-image">
+                        <img src="assets/Images/ontisuka.png" alt="Onitsuka Tiger UI">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/onitsuka.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Onitsuka Tiger UI</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-project="knk">
+                    <div class="card-image">
+                        <img src="assets/Images/knkscreenshot.png" alt="KNK Website">
+                        <video muted loop playsinline>
+                            <source src="assets/Images/website walkthrough.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">KNK Website</h3>
+                        <div class="card-arrow">
+                            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            
+            <div class="modal-video" id="modalVideo">
+                <video controls loop id="modalVideoElement">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+            
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle">Project Title</h2>
+                <span class="modal-category" id="modalCategory">Category</span>
+                <p class="modal-description" id="modalDescription">Project description goes here</p>
+                
+                <div class="modal-info-grid">
+                    <div class="modal-info-item">
+                        <div class="modal-info-label">Client</div>
+                        <div class="modal-info-value" id="modalClient">-</div>
+                    </div>
+                    <div class="modal-info-item">
+                        <div class="modal-info-label">Year</div>
+                        <div class="modal-info-value" id="modalYear">-</div>
+                    </div>
+                    <div class="modal-info-item">
+                        <div class="modal-info-label">Duration</div>
+                        <div class="modal-info-value" id="modalDuration">-</div>
+                    </div>
+                </div>
+                
+                <div class="modal-tags" id="modalTags"></div>
+                
+                <div class="modal-gallery" id="modalGallery" style="display: none;">
+                    <h3 class="modal-gallery-title">Project Gallery</h3>
+                    <div class="modal-gallery-grid" id="modalGalleryGrid"></div>
+                </div>
+                
+                <a href="#" class="modal-link" id="modalLink" target="_blank" style="display: none;">
+                    <span>View Live Project</span>
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Project Data
+        const projectData = {
+            ponyo: {
+                title: "Ponyo 3D Model",
+                category: "3D Modeling",
+                description: "A detailed 3D recreation of the beloved character Ponyo from Studio Ghibli's animated film. This project showcases advanced character modeling techniques, texturing, and animation skills using industry-standard 3D software.",
+                client: "Personal Project",
+                year: "2024",
+                duration: "2 weeks",
+                tags: ["Blender", "3D Modeling", "Character Design", "Animation", "Studio Ghibli"],
+                video: "assets/Images/ponyoanimation.mp4",
+                images: [
+                    "assets/Images/ponyo.png",
+                    "assets/Images/ponyo.png",
+                    "assets/Images/ponyo.png"
+                ],
+                link: ""
+            },
+            kimi: {
+                title: "Your Name - Scene Recreation",
+                category: "3D Environment Design",
+                description: "A stunning 3D environment recreation of an iconic scene from 'Kimi no Na wa' (Your Name). This project demonstrates expertise in environment modeling, lighting, and atmospheric effects to capture the essence of the original anime scene.",
+                client: "Personal Project",
+                year: "2024",
+                duration: "3 weeks",
+                tags: ["Blender", "Environment Design", "Lighting", "Anime Recreation", "3D Scene"],
+                video: "assets/Images/kiminonoawaa.mp4",
+                images: [
+                    "assets/Images/kiminososuke.png",
+                    "assets/Images/kiminososuke.png"
+                ],
+                link: ""
+            },
+            frieren: {
+                title: "Frieren Character Model",
+                category: "3D Character Design",
+                description: "A high-quality 3D character model of Frieren from the popular anime series 'Frieren: Beyond Journey's End'. This project highlights advanced character modeling, rigging, and material work to bring the character to life in 3D space.",
+                client: "Personal Project",
+                year: "2024",
+                duration: "3 weeks",
+                tags: ["Blender", "Character Modeling", "Rigging", "Materials", "Anime Character"],
+                video: "assets/Images/frieren.mp4",
+                images: [
+                    "assets/Images/frieren.png",
+                    "assets/Images/frieren.png",
+                    "assets/Images/frieren.png"
+                ],
+                link: ""
+            },
+            onitsuka: {
+                title: "Onitsuka Tiger E-commerce UI",
+                category: "UI/UX Design",
+                description: "A modern and sleek e-commerce interface design for Onitsuka Tiger brand. This project showcases expertise in UI/UX design, focusing on user experience, visual hierarchy, and brand consistency while creating an engaging shopping experience.",
+                client: "Design Concept",
+                year: "2024",
+                duration: "2 weeks",
+                tags: ["Figma", "UI Design", "UX Design", "E-commerce", "Brand Design"],
+                video: "assets/Images/onitsuka.mp4",
+                images: [
+                    "assets/Images/ontisuka.png",
+                    "assets/Images/ontisuka.png"
+                ],
+                link: ""
+            },
+            knk: {
+                title: "KNK Portfolio Website",
+                category: "Web Development",
+                description: "A fully responsive and interactive portfolio website featuring smooth animations, modern design principles, and optimized performance. Built with modern web technologies and best practices for an exceptional user experience across all devices.",
+                client: "KNK Studios",
+                year: "2024",
+                duration: "4 weeks",
+                tags: ["HTML", "CSS", "JavaScript", "Responsive Design", "Web Animation"],
+                video: "assets/Images/website walkthrough.mp4",
+                images: [
+                    "assets/Images/knkscreenshot.png",
+                    "assets/Images/knkscreenshot.png",
+                    "assets/Images/knkscreenshot.png",
+                    "assets/Images/knkscreenshot.png"
+                ],
+                link: ""
+            }
+        };
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+        
+        function openMobileMenu() {
+            mobileMenu.classList.add('open');
+            mobileMenuBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileMenuBackdrop.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        menuBtn.addEventListener('click', openMobileMenu);
+        closeMenu.addEventListener('click', closeMobileMenu);
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+        
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+        
+        // Filter tabs functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || href === '#!') return;
+                
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('projectModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalVideoElement = document.getElementById('modalVideoElement');
+        
+        function openModal(projectId) {
+            const project = projectData[projectId];
+            if (!project) return;
+            
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalCategory').textContent = project.category;
+            document.getElementById('modalDescription').textContent = project.description;
+            document.getElementById('modalClient').textContent = project.client;
+            document.getElementById('modalYear').textContent = project.year;
+            document.getElementById('modalDuration').textContent = project.duration;
+            
+            // Set video source
+            modalVideoElement.src = project.video;
+            modalVideoElement.load();
+            
+            // Set tags
+            const tagsContainer = document.getElementById('modalTags');
+            tagsContainer.innerHTML = '';
+            project.tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'modal-tag';
+                tagElement.textContent = tag;
+                tagsContainer.appendChild(tagElement);
+            });
+            
+            // Set link
+            const modalLink = document.getElementById('modalLink');
+            if (project.link) {
+                modalLink.href = project.link;
+                modalLink.style.display = 'inline-flex';
+            } else {
+                modalLink.style.display = 'none';
+            }
+            
+            // Set gallery
+            const modalGallery = document.getElementById('modalGallery');
+            const modalGalleryGrid = document.getElementById('modalGalleryGrid');
+            if (project.images && project.images.length > 0) {
+                modalGalleryGrid.innerHTML = '';
+                project.images.forEach((imgSrc, index) => {
+                    const imgElement = document.createElement('div');
+                    imgElement.className = 'modal-gallery-item';
+                    imgElement.innerHTML = `<img src="${imgSrc}" alt="${project.title} - Image ${index + 1}" onerror="this.parentElement.style.display='none'">`;
+                    modalGalleryGrid.appendChild(imgElement);
+                });
+                modalGallery.style.display = 'block';
+            } else {
+                modalGallery.style.display = 'none';
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            modalVideoElement.pause();
+            modalVideoElement.src = '';
+        }
+        
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        
+        // Add click events to portfolio cards
+        const portfolioCards = document.querySelectorAll('.portfolio-card');
+        portfolioCards.forEach(card => {
+            const projectId = card.getAttribute('data-project');
+            card.addEventListener('click', () => openModal(projectId));
+            
+            // Video hover effects
+            const video = card.querySelector('video');
+            if (video) {
+                card.addEventListener('mouseenter', () => {
+                    video.play().catch(e => console.log('Video play error:', e));
+                });
+                card.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            }
+        });
+        
+        // Infinite scroll for portfolio
+        const portfolioGrid = document.getElementById('portfolioGrid');
+        const portfolioContainer = document.getElementById('portfolioContainer');
+        
+        function getCardSetWidth() {
+            const cards = portfolioGrid.querySelectorAll('.portfolio-card');
+            if (cards.length === 0) return 0;
+            
+            const firstCardWidth = cards[0].offsetWidth;
+            const gap = 16;
+            const cardsPerSet = cards.length / 2;
+            return (firstCardWidth + gap) * cardsPerSet;
+        }
+        
+        function handleInfiniteScroll() {
+            const scrollLeft = portfolioContainer.scrollLeft;
+            const scrollWidth = portfolioContainer.scrollWidth;
+            const clientWidth = portfolioContainer.clientWidth;
+            const cardSetWidth = getCardSetWidth();
+            
+            if (scrollLeft + clientWidth >= scrollWidth - 10) {
+                portfolioContainer.scrollLeft = scrollLeft - cardSetWidth;
+            } else if (scrollLeft <= 10) {
+                portfolioContainer.scrollLeft = cardSetWidth;
+            }
+        }
+        
+        portfolioContainer.addEventListener('scroll', handleInfiniteScroll);
+        
+        window.addEventListener('load', () => {
+            const cardSetWidth = getCardSetWidth();
+            if (cardSetWidth > 0) {
+                portfolioContainer.scrollLeft = cardSetWidth;
+            }
+        });
+        
+        portfolioContainer.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                e.preventDefault();
+                portfolioContainer.scrollLeft += e.deltaY;
+                handleInfiniteScroll();
+            }
+        }, { passive: false });
+
+        // Initialize DarkVeil background (if darkveil.js is available)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof DarkVeil !== 'undefined') {
+                const darkVeil = new DarkVeil('#mainContent', {
+                    opacity: 0.12,
+                    speed: 0.2,
+                    intensity: 0.35
+                });
+            }
+        });
+    </script>
+    </div>
+</body>
+</html>
